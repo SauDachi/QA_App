@@ -27,7 +27,7 @@ class AnswerSendActivity : AppCompatActivity(), View.OnClickListener, DatabaseRe
 
         //渡ってきたQuestionのオブジェクトを保持する
         val extras = intent.extras
-        mQuestion = extras.get("question") as Question
+        mQuestion = extras?.get("question") as Question
 
         //UIの準備
         sendButton.setOnClickListener(this)
@@ -55,7 +55,7 @@ class AnswerSendActivity : AppCompatActivity(), View.OnClickListener, DatabaseRe
         val answerRef = databaseReference.child(ContentsPATH).child(mQuestion.genre.toString()).child(mQuestion.questionUid).child(
             AnswersPATH)
 
-        val data = HashMap<String, String>()
+        val data = HashMap<String?, String?>()
 
         //UID
         data["uid"] = FirebaseAuth.getInstance().currentUser!!.uid

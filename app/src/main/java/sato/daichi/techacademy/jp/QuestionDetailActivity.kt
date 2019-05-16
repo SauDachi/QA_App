@@ -3,25 +3,18 @@ package sato.daichi.techacademy.jp
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.support.design.widget.FloatingActionButton
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.ListView
 
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_question_detail.*
-import kotlinx.android.synthetic.main.list_question_detail.*
 
 import java.util.HashMap
-import com.google.firebase.database.ValueEventListener
 
 class QuestionDetailActivity : AppCompatActivity() {
 
@@ -85,7 +78,7 @@ class QuestionDetailActivity : AppCompatActivity() {
 
         // 渡ってきたQuestionのオブジェクトを保持する
         val extras = intent.extras
-        mQuestion = extras.get("question") as Question
+        mQuestion = extras?.get("question") as Question
 
         title = mQuestion.title
 
@@ -105,7 +98,7 @@ class QuestionDetailActivity : AppCompatActivity() {
         } else {
             //お気に入りデータ確認
             val dataBaseReference = FirebaseDatabase.getInstance().reference
-            val favoriteRef = dataBaseReference.child(FavoritePATH).child(user!!.uid).child(mQuestion.questionUid)
+            val favoriteRef = dataBaseReference.child(FavoritePATH).child(user.uid).child(mQuestion.questionUid)
             favoriteRef.addChildEventListener(mFavoriteListener)
         }
 
@@ -120,7 +113,7 @@ class QuestionDetailActivity : AppCompatActivity() {
                 favorite_button.setBackgroundColor(Color.LTGRAY)
 
                 //favoritesから削除
-                dataBaseReference.child(FavoritePATH).child(user!!.uid).child(mQuestion.questionUid).removeValue()
+                dataBaseReference.child(FavoritePATH).child(user.uid).child(mQuestion.questionUid).removeValue()
 
                 //mFavFlagをfalse
                 mFavFlag = false
@@ -141,9 +134,6 @@ class QuestionDetailActivity : AppCompatActivity() {
         // ---------------追加---------------
 
         fab.setOnClickListener {
-            // ログイン済みのユーザーを取得する
-            val user = FirebaseAuth.getInstance().currentUser
-
             if (user == null) {
                 // ログインしていなければログイン画面に遷移させる
                 val intent = Intent(applicationContext, LoginActivity::class.java)

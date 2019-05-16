@@ -6,7 +6,6 @@ import com.google.firebase.database.DatabaseReference
 import android.support.design.widget.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import android.preference.PreferenceManager
-import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import com.google.firebase.database.FirebaseDatabase
