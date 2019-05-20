@@ -201,9 +201,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         } else if (id == R.id.nav_health) {
             mToolbar.title = "健康"
             mGenre = 3
-        } else if (id == R.id.nav_compter) {
+        } else if (id == R.id.nav_computer) {
             mToolbar.title = "コンピューター"
             mGenre = 4
+        } else if (id == R.id.nav_favorite) {
+            val intent = Intent(applicationContext, FavoriteListActivity::class.java)
+            startActivity(intent)
         }
 
         val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)
